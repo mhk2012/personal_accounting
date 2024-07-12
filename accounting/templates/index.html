@@ -5,7 +5,12 @@ Personal Accounting
 {% endblock title %}
 
 {% block content %}
-<p>
-    Hello World!
-</p>
+<h1>Transactions</h1>
+<ul>
+    {% for transaction in transactions %}
+    <li>{{ transaction.date }} - {{ transaction.category }} - {{ transaction.amount }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_transaction' %}">Add Transaction</a>
+<a href="{% url 'add_financial_account' %}">Add Financial Account</a>
 {% endblock content %}
