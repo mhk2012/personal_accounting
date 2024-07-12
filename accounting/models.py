@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class FinancialAccount(models.Model):
     account_name = models.CharField(max_length=100)
@@ -31,7 +32,7 @@ class Transaction(models.Model):
     category = models.CharField(max_length=15, choices=TRANSACTION_CATEGORY)
     financial_account = models.ForeignKey(FinancialAccount, on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
-    date = models.DateField()
+    date = models.DateField(default=date.today) # Set default to today's date
     
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
