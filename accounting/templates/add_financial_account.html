@@ -4,6 +4,29 @@
 Add Financial Account
 {% endblock title %}
 
+{% block head %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function toggleFields() {
+            var isCash = document.getElementById('id_is_cash').checked;
+            var bankNameField = document.getElementById('id_bank_name');
+            var accountNumberField = document.getElementById('id_account_number');
+
+            if (isCash) {
+                bankNameField.disabled = true;
+                accountNumberField.disabled = true;
+            } else {
+                bankNameField.disabled = false;
+                accountNumberField.disabled = false;
+            }
+        }
+
+        toggleFields(); // Run on initial load
+        document.getElementById('id_is_cash').addEventListener('change', toggleFields); // Run on checkbox change
+    });
+</script>
+{% endblock head %}
+
 {% block content %}
 <h1>Add Financial Account</h1>
 <form method="post">
