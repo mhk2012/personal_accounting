@@ -3,8 +3,20 @@ from .models import FinancialAccount, Transaction
 from .forms import FinancialAccountForm, TransactionForm
 
 def index(request):
-    transactions = Transaction.objects.all().values()
-    return render(request, 'index.html', {'transactions': transactions})
+    transactions = Transaction.objects.all()
+    financial_accounts = FinancialAccount.objects.all()
+
+    total_income = sum(t.amount for t in transactions if t.transaction_type == 'income')
+    total_expense = sum(t.amount for t in transactions if t.transaction_type == 'expense')
+    balance = total_income - total_expense
+
+    return render(request, 'index.html', {
+        'transactions': transactions,
+        'financial_accounts': financial_accounts,
+        'total_income': total_income,
+        'total_expense': total_expense,
+        'balance': balance
+        })
 
 def add_financial_account(request):
     if request.method == 'POST':

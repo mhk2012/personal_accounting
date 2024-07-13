@@ -8,9 +8,19 @@ Personal Accounting
 <h1>Transactions</h1>
 <ul>
     {% for transaction in transactions %}
-    <li>{{ transaction.date }} - {{ transaction.category }} - {{ transaction.amount }}</li>
+    <li>{{ transaction.date }} - {{ transaction.category }} - {{ transaction.financial_account.account_name }} - {{ transaction.amount }}</li>
     {% endfor %}
 </ul>
+<h1>Financial Accounts</h1>
+<ul>
+    {% for financial_account in financial_accounts %}
+    <li>{{ financial_account.account_name }} - {% if financial_account.is_cash %} Cash {% else %} {{financial_account.bank_name}} {% endif %} - {{ financial_account.balance }}</li>
+    {% endfor %}
+</ul>
+<h1>Summary</h1>
+<p>Total Income: {{ total_income }}</p>
+<p>Total Expense: {{ total_expense }}</p>
+<p>Balance: {{ balance }}</p>
 <a href="{% url 'add_transaction' %}">Add Transaction</a>
 <a href="{% url 'add_financial_account' %}">Add Financial Account</a>
 {% endblock content %}
