@@ -49,11 +49,18 @@ def generate_report(request):
 
             transactions = Transaction.objects.filter(date__range=[start_date, end_date])
 
+            total_income = sum(t.amount for t in transactions if t.transaction_type == 'income')
+            total_expense = sum(t.amount for t in transactions if t.transaction_type == 'expense')
+            balance = total_income - total_expense
+
             return render(request, 'report_results.html', {
                 'form': form,
                 'transactions': transactions,
                 'start_date': start_date,
                 'end_date': end_date,
+                'total_income': total_income,
+                'total_expense': total_expense,
+                'balance': balance
             })
     else:
         form = ReportForm()
