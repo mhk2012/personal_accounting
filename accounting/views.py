@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import FinancialAccount, Transaction
-from .forms import FinancialAccountForm, TransactionForm
+from .forms import FinancialAccountForm, TransactionForm, ReportForm
 
 def index(request):
     transactions = Transaction.objects.all()
@@ -39,3 +39,23 @@ def add_transaction(request):
     else:
         form = TransactionForm()
     return render(request, 'add_transaction.html', {'form': form})
+
+def generate_report(request):
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+
+            transactions = Transaction.objects.filter(date__range=[start_date, end_date])
+
+            return render(request, 'report_results.html', {
+                'form': form,
+                'transactions': transactions,
+                'start_date': start_date,
+                'end_date': end_date,
+            })
+    else:
+        form = ReportForm()
+
+    return render(request, 'report.html', {'form': form})
