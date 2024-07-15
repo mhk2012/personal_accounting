@@ -9,14 +9,21 @@ def index(request):
 
     total_income = sum(t.amount for t in transactions if t.transaction_type == 'income')
     total_expense = sum(t.amount for t in transactions if t.transaction_type == 'expense')
-    balance = total_income - total_expense
+    total_balance = total_income - total_expense
+
+    account_balances = {}
+    for account in financial_accounts:
+        account_transactions = transactions.filter(financial_account=account)
+        income = sum(t.amount for t in account_transactions if t.transaction_type == 'income')
+        expense = sum(t.amount for t in account_transactions if t.transaction_type == 'expense')
+        account_balances[account] = income - expense + account.balance
 
     return render(request, 'index.html', {
         'transactions': transactions,
-        'financial_accounts': financial_accounts,
         'total_income': total_income,
         'total_expense': total_expense,
-        'balance': balance
+        'total_balance': total_balance,
+        'account_balances': account_balances,
         })
 
 def add_financial_account(request):

@@ -40,11 +40,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for financial_account in financial_accounts %}
+            {% for financial_account, account_balance in account_balances.items %}
             <tr>
                 <td>{{ financial_account.account_name }}</td>
                 <td>{% if financial_account.is_cash %} Cash {% else %} {{financial_account.bank_name}} {% endif %}</td>
-                <td>{{ financial_account.balance }}</td>
+                <td>{{ account_balance }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -52,5 +52,5 @@
     <h1 class="mt-4">Summary</h1>
     <p>Total Income: <span class="badge bg-success">{{ total_income }}</span></p>
     <p>Total Expense: <span class="badge bg-danger">{{ total_expense }}</span></p>
-    <p>Balance: <span class="badge bg-primary">{{ balance }}</span></p>
+    <p>Balance: <span class="badge bg-primary">{{ total_balance }}</span></p>
 {% endblock content %}
