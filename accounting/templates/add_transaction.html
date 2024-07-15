@@ -1,14 +1,33 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Add Transaction
-{% endblock title %}
+{% load form_helpers %}
+
+{% block title %}Add Transaction{% endblock title %}
 
 {% block content %}
-<h1>Add Bank Account</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+    <h1 class="mt-4">Add Transaction</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3 mt-3">
+            {% render_label form.transaction_type css_class="form-label" %}
+            {{ form.transaction_type }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.category css_class="form-label" %}
+            {{ form.category }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.financial_account css_class="form-label" %}
+            {{ form.financial_account }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.amount css_class="form-label" %}
+            {{ form.amount }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.date css_class="form-label" %}
+            {{ form.date }}
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
 {% endblock content %}

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Add Financial Account
-{% endblock title %}
+{% load form_helpers %}
 
-{% block head %}
+{% block title %}Add Financial Account{% endblock title %}
+
+{% block extra_script %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function toggleFields() {
@@ -25,13 +25,32 @@ Add Financial Account
         document.getElementById('id_is_cash').addEventListener('change', toggleFields); // Run on checkbox change
     });
 </script>
-{% endblock head %}
+{% endblock extra_script %}
 
 {% block content %}
-<h1>Add Financial Account</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+    <h1 class="mt-4">Add Financial Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3 mt-3">
+            {% render_label form.account_name css_class="form-label" %}
+            {{ form.account_name }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.bank_name css_class="form-label" %}
+            {{ form.bank_name }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.account_number css_class="form-label" %}
+            {{ form.account_number }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.balance css_class="form-label" %}
+            {{ form.balance }}
+        </div>
+        <div class="form-check mb-3">
+            {% render_label form.is_cash css_class="form-check-label" %}
+            {{ form.is_cash }}
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
 {% endblock content %}

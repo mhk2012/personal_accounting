@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Personal Accounting
-{% endblock title %}
+{% block title %}Home{% endblock title %}
 
 {% block content %}
-<h1>Transactions</h1>
-<ul>
-    {% for transaction in transactions %}
-    <li>{{ transaction.date }} - {{ transaction.category }} - {{ transaction.financial_account.account_name }} - {{ transaction.amount }}</li>
-    {% endfor %}
-</ul>
-<h1>Financial Accounts</h1>
-<ul>
-    {% for financial_account in financial_accounts %}
-    <li>{{ financial_account.account_name }} - {% if financial_account.is_cash %} Cash {% else %} {{financial_account.bank_name}} {% endif %} - {{ financial_account.balance }}</li>
-    {% endfor %}
-</ul>
-<h1>Summary</h1>
-<p>Total Income: {{ total_income }}</p>
-<p>Total Expense: {{ total_expense }}</p>
-<p>Balance: {{ balance }}</p>
-<a href="{% url 'add_transaction' %}">Add Transaction</a>
-<a href="{% url 'add_financial_account' %}">Add Financial Account</a>
-<a href="{% url 'generate_report' %}">Report</a>
+    <h1 class="mt-4">Transactions</h1>
+    <ul class="list-group mb-4">
+        {% for transaction in transactions %}
+        <li class="list-group-item">{{ transaction.date }} - {{ transaction.category }} - {{ transaction.financial_account.account_name }} - {{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+    <h1>Financial Accounts</h1>
+    <ul class="list-group mb-4">
+        {% for financial_account in financial_accounts %}
+        <li class="list-group-item">{{ financial_account.account_name }} - {% if financial_account.is_cash %} Cash {% else %} {{financial_account.bank_name}} {% endif %} - {{ financial_account.balance }}</li>
+        {% endfor %}
+    </ul>
+    <h1>Summary</h1>
+    <p>Total Income: <span class="badge bg-success">{{ total_income }}</span></p>
+    <p>Total Expense: <span class="badge bg-danger">{{ total_expense }}</span></p>
+    <p>Balance: <span class="badge bg-primary">{{ balance }}</span></p>
 {% endblock content %}

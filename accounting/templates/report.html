@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Generate Report
-{% endblock title %}
+{% load form_helpers %}
+
+{% block title %}Generate Report{% endblock title %}
 
 {% block content %}
-<h1>Generate Report</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Generate</button>
-</form>
+    <h1 class="mt-4">Generate Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3 mt-3">
+            {% render_label form.start_date css_class="form-label" %}
+            {{ form.start_date }}
+        </div>
+        <div class="mb-3">
+            {% render_label form.end_date css_class="form-label" %}
+            {{ form.end_date }}
+        </div>
+        <button class="btn btn-primary" type="submit">Generate</button>
+    </form>
 {% endblock content %}

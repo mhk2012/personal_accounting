@@ -5,6 +5,13 @@ class FinancialAccountForm(forms.ModelForm):
     class Meta:
         model = FinancialAccount
         fields = ['account_name', 'bank_name', 'account_number', 'balance', 'is_cash']
+        widgets = {
+            'account_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bank_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'balance': forms.NumberInput(attrs={'class': 'form-control'}),
+            'is_cash': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -28,15 +35,22 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ['transaction_type', 'category', 'financial_account', 'amount', 'date']
+        widgets = {
+            'transaction_type': forms.Select(attrs={'class': 'form-select'}), 
+            'category': forms.Select(attrs={'class': 'form-select'}), 
+            'financial_account': forms.Select(attrs={'class': 'form-select'}), 
+            'amount': forms.NumberInput(attrs={'class': 'form-control'}), 
+            'date': forms.DateInput(attrs={'class': 'form-control'}), 
+        }
 
-class   ReportForm(forms.Form):
+class ReportForm(forms.Form):
     start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         required=True,
         label='Start Date'
     )
     end_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         required=True,
         label='End Date'
     )
