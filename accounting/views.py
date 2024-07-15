@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .models import FinancialAccount, Transaction
 from .forms import FinancialAccountForm, TransactionForm, ReportForm
 
@@ -66,3 +67,11 @@ def generate_report(request):
         form = ReportForm()
 
     return render(request, 'report.html', {'form': form})
+
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    if request.method == 'POST':
+        transaction.delete()
+        messages.success(request, 'Transaction deleted successfully.')
+        return redirect('index')
+    return render(request, 'delete_transaction.html', {'transaction': transaction})

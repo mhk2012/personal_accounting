@@ -12,6 +12,7 @@
                 <th>Account</th>
                 <th>Type</th>
                 <th>Amount</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
                 <td>{{ transaction.financial_account.account_name }}</td>
                 <td>{{ transaction.get_transaction_type_display }}</td>
                 <td>{{ transaction.amount }}</td>
+                <td>
+                    <a href="{% url 'delete_transaction' transaction.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

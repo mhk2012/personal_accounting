@@ -9,7 +9,7 @@ This is a small personal accounting application built with Django and SQLite. It
 ## Features
 
 - Add financial accounts.
-- Add transactions.
+- Add and delete transactions.
 - Categorize transactions.
 - Generate financial reports for custom date ranges.
 - Calculate and display total income, total expenses, and balance on the homepage.
