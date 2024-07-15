@@ -1,6 +1,5 @@
 from django import forms
 from .models import FinancialAccount, Transaction
-import datetime
 
 class FinancialAccountForm(forms.ModelForm):
     class Meta:
@@ -14,8 +13,9 @@ class FinancialAccountForm(forms.ModelForm):
         account_number = cleaned_data.get('account_number')
 
         if is_cash:
-            if bank_name or account_number:
-                raise forms.ValidationError("Bank name and account number should be empty for cash accounts.")
+            # Don't need to show an error, just empty the 'bank_name' and 'account_number'
+            cleaned_data['bank_name'] = ''
+            cleaned_data['account_number'] = ''
         else:
             if not bank_name:
                 self.add_error('bank_name', 'This field is required.')

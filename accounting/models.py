@@ -1,5 +1,5 @@
-from django.db import models
 from datetime import date
+from django.db import models
 
 class FinancialAccount(models.Model):
     account_name = models.CharField(max_length=100)
